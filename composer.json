@@ -18,12 +18,20 @@
     ],
     "require": {
         "illuminate/support": "~5.1",
-        "php" : ">=5.4.0"
+        "php" : ">=5.4.0",
+        "laravel/framework": "5.2.*",
+        "pusher/pusher-php-server": "^2.2",
+        "google/recaptcha": "^1.1",
+        "yajra/laravel-datatables-oracle": "^6.3",
+        "cartalyst/sentinel": "^2.0",
+        "laravelcollective/html": "^5.2"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.*",
         "scrutinizer/ocular": "~1.1",
-        "squizlabs/php_codesniffer": "~2.3"
+        "squizlabs/php_codesniffer": "~2.3",
+        "jeroen-g/laravel-packager": "^1.3",
+        "barryvdh/laravel-ide-helper": "^2.1"
     },
     "autoload": {
         "psr-4": {

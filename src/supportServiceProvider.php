@@ -1,6 +1,4 @@
-<?php
-
-namespace jlourenco\support;
+<?php namespace jlourenco\support;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +12,7 @@ class supportServiceProvider extends ServiceProvider
     public function boot()
     {
         // Publish our routes
-		require __DIR__ . '/routes.php';
+		/*require __DIR__ . '/routes.php';
 
         // Publish our views
         $this->loadViewsFrom(base_path("resources/views"), 'support');
@@ -30,7 +28,7 @@ class supportServiceProvider extends ServiceProvider
         // Publish a config file
         $this->publishes([
             __DIR__ . '/config' => base_path('/config')
-        ], 'config');
+        ], 'config');*/
     }
 
     /**
