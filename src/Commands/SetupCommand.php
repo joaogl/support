@@ -38,7 +38,57 @@ class SetupCommand extends Command {
      */
     public function fire()
     {
-        $this->info('Testing command.');
+        if (!$this->confirm('Running this command will reset all jlourenco config files. Are you sure? '))
+        {
+            $this->info('Command was aborted by the user.');
+            return;
+        }
+
+        $this->compileConfigFiles();
+
+        $this->info('Command ran successfully');
+    }
+
+    private function compileConfigFiles()
+    {
+        $path = base_path('/config');
+        $mainFile = $path . '/jlourenco.php';
+        $fileExists = file_exists($mainFile);
+
+        $files = array_filter(scandir($path), function ($var) {
+            return (!(stripos($var, 'jlourenco.') === false) && $var != 'jlourenco.php');
+        });
+
+        if ($fileExists)
+            unlink($mainFile);
+
+        touch($mainFile);
+
+        $content = "<?php\n";
+        $content .= "return [\n\n";
+
+        foreach ($files as $file)
+        {
+            $in = fopen($path . '/' . $file, "r");
+
+            while ($line = fgets($in))
+            {
+                if ((stripos($line, '<?php') === false) && (stripos($line, '];') === false) && (stripos($line, 'return [') === false))
+                    $content .= $line;
+            }
+
+            fclose($in);
+
+            unlink($path . '/' . $file);
+        }
+
+        $content .= "];\n";
+
+        $bytesWritten = File::append($mainFile, $content);
+        if ($bytesWritten === false)
+            die("Couldn't write to config file.");
+
+        $this->info('Config files compiled');
     }
 
 }

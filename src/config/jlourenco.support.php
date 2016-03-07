@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Support Package
@@ -11,7 +9,9 @@ return [
     |
     */
 
-    'RE_CAP_SITE' => '6LeDphkTAAAAABlZx0CzSdEx1R3LzR-7qpm70hk4',
-    'RE_CAP_SECRET' => '6LeDphkTAAAAAGXP8nBtxEMRaxj_V-MmsbXjinl1',
+    'support' => [
+        'RE_CAP_SITE' => env('RE_CAP_SITE'),
+        'RE_CAP_SECRET' => env('RE_CAP_SECRET'),
+    ],
 
 ];
