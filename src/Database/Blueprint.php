@@ -34,9 +34,9 @@ class Blueprint extends IlluminateBlueprint {
 
     public function creationRelation()
     {
-        $this->foreign('created_by')->references('id')->on('User');
-        $this->foreign('modified_by')->references('id')->on('User');
-        $this->foreign('deleted_by')->references('id')->on('User');
+        $this->foreign('created_by')->references('id')->on('user');
+        $this->foreign('modified_by')->references('id')->on('user');
+        $this->foreign('deleted_by')->references('id')->on('user');
     }
 
     /**
