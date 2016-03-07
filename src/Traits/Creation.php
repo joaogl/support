@@ -12,21 +12,31 @@ trait Creation {
     public static function bootCreation()
     {
 
-        // create a event to happen on updating
-        static::updating(function($table)  {
-            $table->modified_by = Sentinel::getUser()->id;
-        });
-
         // create a event to happen on deleting
         static::deleting(function($table)  {
-            $table->deleted_by = Sentinel::getUser()->id;
+            if (class_exists('Cartalyst\Sentinel\Laravel\Facades\Sentinel'))
+                $table->deleted_by = Sentinel::getUser()->id;
+            else
+                $table->deleted_by = Auth::user()->id;
         });
 
         // create a event to happen on saving
         static::saving(function($table)  {
 
-            if ($user = Sentinel::check())
-                $table->created_by = Sentinel::getUser()->id;
+            if (class_exists('Cartalyst\Sentinel\Laravel\Facades\Sentinel'))
+            {
+                $table->modified_by = Sentinel::getUser()->id;
+
+                if ($user = Sentinel::check() && ($table->created_by == null || !($table->created_by > 0)))
+                    $table->created_by = Sentinel::getUser()->id;
+            }
+            else
+            {
+                $table->modified_by = Auth::user()->id;
+
+                if (!Auth::guest() && ($table->created_by == null || !($table->created_by > 0)))
+                    $table->created_by = Auth::user()->id;
+            }
 
         });
 
