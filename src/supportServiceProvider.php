@@ -1,6 +1,7 @@
 <?php namespace jlourenco\support;
 
 use Illuminate\Support\ServiceProvider;
+use jlourenco\support\Commands\SetupCommand;
 
 class supportServiceProvider extends ServiceProvider
 {
@@ -12,11 +13,9 @@ class supportServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Publish a config file
-        $this->publishes([
-            __DIR__ . '/config' => base_path('/config')
-        ], 'config');
+
     }
+
     /**
      * Register any package services.
      *
@@ -24,10 +23,56 @@ class supportServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Bind the
-        $this->app->bind('support', function(){
-            return new support;
+        $this->prepareResources();
+        $this->registerCommands();
+    }
+
+    /**
+     * Prepare the package resources.
+     *
+     * @return void
+     */
+    protected function prepareResources()
+    {
+        // Publish a config file
+        $this->publishes([
+            __DIR__ . '/config' => base_path('/config')
+        ], 'config');
+    }
+
+    /**
+     * Register the commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        $this->registerSetupCommand();
+    }
+
+    /**
+     * Register the 'jlourenco:setup' command.
+     *
+     * @return void
+     */
+    protected function registerSetupCommand()
+    {
+        $this->app->singleton('command.jlourenco:setup', function($app) {
+            return new SetupCommand();
         });
+        $this->commands('command.jlourenco:setup');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'command.jlourenco:setup'
+        ];
     }
 
 }
