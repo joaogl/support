@@ -7,8 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+This package is the support for every jlourenco package. It does not depend on any other jlourenco package and it adds a few helper functions.
 
 ## Install
 
@@ -16,13 +15,23 @@ Via Composer
 
 ``` bash
 $ composer require jlourenco/support
+$ php artisan jlourenco:setup
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
+Schema::create('TestingTable', function (Blueprint $table) {
+    $table->increments('id');
+    $table->string('name', 25);
+    $table->string('description', 150)->nullable();
+    $table->timestamps();
+    $table->creation();
+});
+
+Schema::table('TestingTable', function (Blueprint $table) {
+    $table->creationRelation();
+});
 ```
 
 ## Change log
