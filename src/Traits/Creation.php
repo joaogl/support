@@ -27,7 +27,7 @@ trait Creation {
             {
                 $table->modified_by = Sentinel::getUser()->id;
 
-                if ($user = Sentinel::check() && ($table->created_by == null || !($table->created_by > 0)))
+                if (Sentinel::check() && ($table->created_by == null || !($table->created_by > 0)))
                     $table->created_by = Sentinel::getUser()->id;
             }
             else

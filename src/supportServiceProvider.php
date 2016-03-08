@@ -57,7 +57,7 @@ class supportServiceProvider extends ServiceProvider
      */
     protected function registerSetupCommand()
     {
-        $this->app->singleton('command.jlourenco:setup', function($app) {
+        $this->app->singleton('command.jlourenco:setup', function() {
             return new SetupCommand();
         });
         $this->commands('command.jlourenco:setup');
