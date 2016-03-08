@@ -34,9 +34,12 @@ class Blueprint extends IlluminateBlueprint {
 
     public function creationRelation()
     {
-        $this->foreign('created_by')->references('id')->on('user');
-        $this->foreign('modified_by')->references('id')->on('user');
-        $this->foreign('deleted_by')->references('id')->on('user');
+        $tab = config('jlourenco.support.relations.UsersTable');
+        $col = config('jlourenco.support.relations.UsersColumn');
+
+        $this->foreign('created_by')->references($col)->on($tab);
+        $this->foreign('modified_by')->references($col)->on($tab);
+        $this->foreign('deleted_by')->references($col)->on($tab);
     }
 
     /**
