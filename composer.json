@@ -1,10 +1,11 @@
 {
     "name": "jlourenco/support",
     "type": "library",
-    "description": "Package to support every jlourenco package",
+    "description": "Package to support every jlourenco package. This adds some helper functions which do not require any other jlourenco package.",
     "keywords": [
         "jlourenco",
-        "support"
+        "support",
+        "recaptcha"
     ],
     "homepage": "https://github.com/jlourenco/support",
     "license": "MIT",
