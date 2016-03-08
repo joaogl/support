@@ -1,10 +1,10 @@
 # support
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Latest Stable Version](https://img.shields.io/packagist/v/jlourenco/support.svg?style=flat-square&label=stable)](https://packagist.org/packages/jlourenco/support)
+[![Latest Unstable Version](https://img.shields.io/packagist/vpre/jlourenco/support.svg?style=flat-square&label=unstable)](https://packagist.org/packages/jlourenco/support)
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Build Status](https://scrutinizer-ci.com/g/joaogl/support/badges/build.png?b=master)](https://scrutinizer-ci.com/g/joaogl/support/build-status/master)
+[![Quality Score](https://scrutinizer-ci.com/g/joaogl/support/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joaogl/support/?branch=master)
 [![Total Downloads][ico-downloads]][link-downloads]
 
 This package is the support for every jlourenco package. It does not depend on any other jlourenco package and it adds a few helper functions.
@@ -55,17 +55,9 @@ If you discover any security related issues, please email jglourenco.pt@gmail.co
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/jlourenco/support.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/jlourenco/support/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/jlourenco/support.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/jlourenco/support.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/jlourenco/support.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/jlourenco/support
-[link-travis]: https://travis-ci.org/joaogl/support
-[link-scrutinizer]: https://scrutinizer-ci.com/g/joaogl/support/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/joaogl/support
 [link-downloads]: https://packagist.org/packages/jlourenco/support
 [link-author]: https://github.com/joaogl
 [link-contributors]: ../../contributors
