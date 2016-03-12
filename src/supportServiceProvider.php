@@ -13,6 +13,10 @@ class supportServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (env('APP_DEBUG')) {
+            ini_set('opcache.revalidate_freq', '0');
+            ini_set('opcache.fast_shutdown', '0');
+        }
 
     }
 

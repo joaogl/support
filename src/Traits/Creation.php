@@ -25,14 +25,16 @@ trait Creation {
 
             if (class_exists('Cartalyst\Sentinel\Laravel\Facades\Sentinel'))
             {
-                $table->modified_by = Sentinel::getUser()->id;
+                if (Sentinel::check())
+                    $table->modified_by = Sentinel::getUser()->id;
 
                 if (Sentinel::check() && ($table->created_by == null || !($table->created_by > 0)))
                     $table->created_by = Sentinel::getUser()->id;
             }
             else
             {
-                $table->modified_by = Auth::user()->id;
+                if (!Auth::guest())
+                    $table->modified_by = Auth::user()->id;
 
                 if (!Auth::guest() && ($table->created_by == null || !($table->created_by > 0)))
                     $table->created_by = Auth::user()->id;
