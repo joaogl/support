@@ -83,8 +83,9 @@ class SetupCommand extends Command {
         $content .= "];\n";
 
         $bytesWritten = File::append($mainFile, $content);
+
         if ($bytesWritten === false)
-            die("Couldn't write to config file.");
+            $this->info('Couldn\'t write to config file.');
 
         $this->info('Config files compiled');
     }

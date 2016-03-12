@@ -9,7 +9,7 @@ trait CaptchaTrait
     public function captchaCheck()
     {
         $response = Input::get('g-recaptcha-response');
-        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $remoteip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_SANITIZE_STRING); //$_SERVER['REMOTE_ADDR'];
         $secret   = config('jlourenco.support.RE_CAP_SECRET');
 
         $recaptcha = new ReCaptcha($secret);
