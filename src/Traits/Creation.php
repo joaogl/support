@@ -18,6 +18,8 @@ trait Creation {
                 $table->deleted_by = Sentinel::getUser()->id;
             else
                 $table->deleted_by = Auth::user()->id;
+
+            $table->update(['deleted_by' => $table->deleted_by]);
         });
 
         // create a event to happen on saving
@@ -44,4 +46,9 @@ trait Creation {
 
     }
 
+    public function deletedBy()
+    {
+        return Sentinel::createModel()->find($this->deleted_by);
+    }
+    
 }

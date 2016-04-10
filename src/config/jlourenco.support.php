@@ -16,6 +16,7 @@ return [
             'UsersTable' => 'User',
             'UsersColumn' => 'id',
         ],
+        'Dates_Format' => 'd/m/Y'
     ],
 
 ];
