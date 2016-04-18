@@ -2,9 +2,17 @@
 
 use Illuminate\Support\ServiceProvider;
 use jlourenco\support\Commands\SetupCommand;
+use jlourenco\support\Interfaces\LaravelFallbackInterface;
 
 class supportServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
     /**
      * Perform post-registration booting of services.
@@ -17,7 +25,6 @@ class supportServiceProvider extends ServiceProvider
             ini_set('opcache.revalidate_freq', '0');
             ini_set('opcache.fast_shutdown', '0');
         }
-
     }
 
     /**
@@ -29,6 +36,8 @@ class supportServiceProvider extends ServiceProvider
     {
         $this->prepareResources();
         $this->registerCommands();
+        $this->registerToAppConfig();
+        $this->registerSetting();
     }
 
     /**
@@ -68,6 +77,55 @@ class supportServiceProvider extends ServiceProvider
     }
 
     /**
+     * Registers this module to the
+     * services providers and aliases.
+     *
+     * @return void
+     */
+    protected function registerToAppConfig()
+    {
+        /*
+         * Register the service provider for the dependencies.
+         */
+        $this->app->register(\Collective\Html\HtmlServiceProvider::class);
+        // $this->app->register('jlourenco\support\supportServiceProvider');
+
+        /*
+         * Create aliases for the dependencies.
+         */
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Input', 'Illuminate\Support\Facades\Input');
+        $loader->alias('Form', 'Collective\Html\FormFacade');
+        $loader->alias('Html', 'Collective\Html\HtmlFacade');
+        $loader->alias('Setting', 'jlourenco\support\Facades\Setting');
+    }
+
+    /**
+     * Registers setting.
+     *
+     * @return void
+     */
+    protected function registerSetting()
+    {
+        $this->app->singleton('setting', function ($app) {
+            $config = $app['config']->get('jlourenco.support');
+
+            $path = array_get($config, 'Setting.path');
+            $filename = array_get($config, 'Setting.filename');
+            $fallback = array_get($config, 'Setting.fallback') ? new LaravelFallbackInterface() : null;
+
+            $set = new Setting($path, $filename, $fallback);
+
+            return $set;
+        });
+
+        $config = $this->app['config']->get('jlourenco.support');
+
+        if (array_get($config, 'Setting.autoAlias'))
+            $this->app->alias('setting', 'jlourenco\support\Setting');
+    }
+
+    /**
      * Get the services provided by the provider.
      *
      * @return array
@@ -75,7 +133,8 @@ class supportServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'command.jlourenco:setup'
+            'command.jlourenco:setup',
+            'Setting'
         ];
     }
 

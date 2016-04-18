@@ -1,8 +1,10 @@
 <?php namespace jlourenco\support\Helpers;
 
-class ColorHelper {
+class ColorHelper
+{
 
-    public static function adjustBrightness($hex, $steps) {
+    public static function adjustBrightness($hex, $steps)
+    {
         // Steps should be between -255 and 255. Negative = darker, positive = lighter
         $steps = max(-255, min(255, $steps));
 

@@ -4,6 +4,9 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use File;
+use jlourenco\support\Helpers\FileLoader;
+use Setting;
+use Schema;
 
 class SetupCommand extends Command {
 
@@ -43,6 +46,8 @@ class SetupCommand extends Command {
         }
 
         $this->compileConfigFiles();
+        // $this->checkSentinelConfigFiles();
+        Schema::dropIfExists('users');
 
         $this->info('Command ran successfully');
     }
@@ -88,6 +93,24 @@ class SetupCommand extends Command {
             $this->info('Couldn\'t write to config file.');
 
         $this->info('Config files compiled');
+    }
+
+    private function checkSentinelConfigFiles()
+    {
+        Setting::set('cartalyst.sentinel.users.model', 'jlourenco\base\Models\BaseUser');
+        Setting::set('cartalyst.sentinel.roles.model', 'jlourenco\base\Models\Group');
+
+        /*
+        $l = new FileLoader(
+            new \Illuminate\Filesystem\Filesystem(),
+            base_path().'/config/cartalyst.sentinel.php'
+        );
+
+        $conf = ['' => ''];
+        $conf2 = ['cartalyst.sentinel.roles.model' => 'jlourenco\base\Models\Group'];
+
+        $l->save($conf, '', 'cartalyst.sentinel');
+        */
     }
 
 }

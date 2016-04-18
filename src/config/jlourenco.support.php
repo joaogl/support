@@ -17,7 +17,13 @@ return [
             'UsersColumn' => 'id',
         ],
         'Dates_Format' => 'd/m/Y',
-        'DateTime_Format' => 'd/m/Y h:i'
+        'DateTime_Format' => 'd/m/Y h:i',
+        'Setting' => [
+            'path'     => app_path() . '/storage/meta',
+            'filename' => 'setting.json',
+            'fallback' => true,
+            'autoAlias'=> true,
+        ]
     ],
 
 ];
