@@ -1,8 +1,9 @@
 <?php namespace jlourenco\support;
 
 use Illuminate\Support\ServiceProvider;
-use jlourenco\support\Commands\SetupCommand;
 use jlourenco\support\Interfaces\LaravelFallbackInterface;
+use jlourenco\support\Commands\ConfigCommand;
+use jlourenco\support\Commands\MigrateCommand;
 
 class supportServiceProvider extends ServiceProvider
 {
@@ -60,7 +61,8 @@ class supportServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        $this->registerSetupCommand();
+        $this->registerConfigCommand();
+        $this->registerMigrationCommand();
     }
 
     /**
@@ -68,12 +70,25 @@ class supportServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerSetupCommand()
+    protected function registerConfigCommand()
     {
-        $this->app->singleton('command.jlourenco:setup', function() {
-            return new SetupCommand();
+        $this->app->singleton('command.jlourenco:config', function() {
+            return new ConfigCommand();
         });
-        $this->commands('command.jlourenco:setup');
+        $this->commands('command.jlourenco:config');
+    }
+
+    /**
+     * Register the 'jlourenco:migrate' command.
+     *
+     * @return void
+     */
+    protected function registerMigrationCommand()
+    {
+        $this->app->singleton('command.jlourenco:migrate', function() {
+            return new MigrateCommand();
+        });
+        $this->commands('command.jlourenco:migrate');
     }
 
     /**
@@ -133,7 +148,8 @@ class supportServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'command.jlourenco:setup',
+            'command.jlourenco:config',
+            'command.jlourenco:migrate',
             'Setting'
         ];
     }
